@@ -1,0 +1,52 @@
+services:
+  mysql-db:
+    image: mysql:8.4.1
+    container_name: mysql-db
+    restart: unless-stopped
+    environment:     
+      MYSQL_DATABASE: blog
+      MYSQL_USER: user_blog
+      MYSQL_PASSWORD: blog123
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - appnet
+
+  blog-web-api:
+    build: 
+     context: . 
+     dockerfile: src/backend/Blog.API/Dockerfile
+    container_name: blog-api
+    depends_on:
+      - mysql-db
+    expose:
+      - "80"
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=mysql-db;Port=3306;Database=blog;User=user_blog;Password=blog123;"
+    networks:
+      - appnet
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - blog-web-api
+    networks:
+      - appnet
+
+volumes:
+  dbdata:
+
+networks:
+  appnet:
+
+
+    
