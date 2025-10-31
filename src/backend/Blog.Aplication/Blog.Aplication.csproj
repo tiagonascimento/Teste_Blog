@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="Mapster" Version="7.4.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Blog.Exception\Blog.Exception.csproj" />
+    <ProjectReference Include="..\..\shared\Blog.Comunication\Blog.Comunication.csproj" />
+    <ProjectReference Include="..\Blog.Infra\Blog.Infra.csproj" />
+    <ProjectReference Include="..\Bog.Domain\Bog.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
