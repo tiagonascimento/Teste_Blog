@@ -18,13 +18,17 @@ namespace Blog.Infra.Repositorio.Post
         public async Task<Bog.Domain.entities.Post> GetPost(int id)
         {
             return await _dbContext.Posts
+                .Include(p => p.Comentarios)
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
         public async Task<List<Bog.Domain.entities.Post>> GetAllPost()
         {
+
            return await _dbContext.Posts
                        .Include(p => p.Comentarios)
                       .ToListAsync();
+
+
 
         }
     }

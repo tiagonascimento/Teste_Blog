@@ -46,5 +46,16 @@ namespace Blog.API.Controllers
             return Ok(resposta);
 
         }
+
+
+        [HttpGet("{id}/post")]
+        [ProducesResponseType(typeof(ResponsePost), StatusCodes.Status200OK)]
+        public async Task<IActionResult> Getpost(int id, [FromServices] IValidacaoComentario validacao, [FromServices] IPost post)
+        {
+
+            var resposta = await post.GetPosts(id);
+            return Ok(resposta);
+
+        }
     }
 }

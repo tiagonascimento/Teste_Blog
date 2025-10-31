@@ -36,9 +36,15 @@ namespace Blog.Aplication.posts
             return true;
         }
 
+        public async Task<ResponsePost> GetPosts(int idPost)
+        {
+            var post = await _postRepositorioRead.GetPost(idPost);
+            return post.Adapt<ResponsePost>();
+        }
+
         public async Task<List<ResponsePost>> ListaPosts()
         {
-            var post = await _postRepositorioRead.GetAllPost();
+            var post = await _postRepositorioRead.GetAllPost();             
             return post.Adapt<List<ResponsePost>>();           
         }
     }
